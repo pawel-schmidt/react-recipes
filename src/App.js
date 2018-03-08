@@ -1,21 +1,29 @@
-import React, { Component } from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { Component } from "react";
+import logo from "./logo.svg";
+import "./App.css";
 import Ingredients from "./components/Ingredients";
 import RecipesList from "./components/RecipesList";
 
 import allIngredients from "./data/ingredients.json";
 import allRecipes from "./data/recipes.json";
 
+const ALL_CATEGORIES = "All";
 class App extends Component {
   constructor(props) {
     super(props);
+    const allCategoriesWithDuplicates = [
+      ALL_CATEGORIES,
+      ...allRecipes.map(recipe => recipe.category)
+    ];
+    const allCategories = [...new Set(allCategoriesWithDuplicates)];
     this.state = {
       allIngredients,
       allRecipes,
+      allCategories,
       visibleIngredients: allIngredients,
       visibleRecipes: allRecipes,
-      selectedIngredients: ["boczek", "bażant pieczony"]
+      selectedIngredients: ["boczek", "bażant pieczony"],
+      selectedCategory: ""
     };
     this.addIngredient = this.addIngredient.bind(this);
   }
@@ -23,11 +31,27 @@ class App extends Component {
     console.log("hej");
   }
 
+  filterRecipes(categoryName) {
+    this.setState({
+      visibleRecipes:
+        categoryName === ALL_CATEGORIES
+          ? this.state.allRecipes
+          : this.state.allRecipes.filter(
+              recipe => recipe.category === categoryName
+            )
+    });
+  }
+
   render() {
     return (
       <div className="App">
         <Ingredients visibleIngredients={this.state.visibleIngredients} selectedIngredients={this.state.selectedIngredients} addIgredient={this.state.addIgredient} />
-        <RecipesList visibleRecipes={this.state.visibleRecipes} />
+        <RecipesList
+          allCategories={this.state.allCategories}
+          selectedCategory={this.state.selectedCategory}
+          visibleRecipes={this.state.visibleRecipes}
+          filterRecipes={this.filterRecipes.bind(this)}
+        />
         <header className="App-header">
           <img src={logo} className="App-logo" alt="logo" />
           <h1 className="App-title">Welcome to React</h1>

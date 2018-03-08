@@ -35,5 +35,29 @@
       "kostki lodu"
     ],
     "recipe":"Shaker wypełniamy do połowy kostkami lodu. Wlewamy do niego złotą tequilę oraz soki. Dobrze wstrząsamy i przelewamy jego zawartość do szklanki typu old-fashioned. Dodajemy kawałek pomarańczy i/lub limonki do ozdoby."
+  },
+  {
+    "id":"4",
+    "category":"Obiad",
+    "name":"Ziemniaki Hasselback",
+    "ingredients":[
+      "ziemniaki",
+      "kokos",
+      "figi świeże"
+    ],
+    "recipe":"Piekarnik rozgrzać do 220 stopni. Ziemniaki wyszorować, osuszyć i przy pomocy bardzo ostrego noża ponacinać na cienkie 2 – 3 mm paski. Ważne jest, aby w trakcie uważać i nie przeciąć ziemniaka na pół!"
+  },
+  {
+    "id":"5",
+    "category":"Śniadanie",
+    "name":"Koktajl z owoców",
+    "ingredients":[
+      "maliny",
+      "gruszka suszona",
+      "nektar jabłkowy antonówka",
+      "sok z limonki",
+      "kostki lodu"
+    ],
+    "recipe":"Na dno małego rondelka włożyć olej kokosowy i lekko podgrzać. Dodać kurkumę oraz pieprz i podgrzewać przez 30 sekund. Po tym czasie dodać płatki, mleko, sól oraz cukier i gotować przez 10 – 15 minut na małym ogniu, co jakiś czas można zamieszać."
   }
 ]
