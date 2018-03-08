@@ -1,0 +1,9 @@
+.Ingredients-list {
+  background: pink;
+  max-width: 400px;
+  height: 400px;
+  overflow-x: hidden;
+  margin: 0 auto;
+  list-style-type: none;
+  padding-left: 0;
+}
