@@ -7,6 +7,7 @@ import allIngredients from "./data/ingredients.json";
 import allRecipes from "./data/recipes.json";
 
 const ALL_CATEGORIES = "All";
+
 class App extends Component {
   constructor(props) {
     super(props);
@@ -25,16 +26,18 @@ class App extends Component {
       selectedCategory: ""
     };
   }
+  
   addIngredient(ingredient) {
     this.setState({
       selectedIngredients: [...this.state.selectedIngredients, ingredient],
-      visibleIngredients: this.state.visibleIngredients.filter(item => item != ingredient)
+      visibleIngredients: this.state.visibleIngredients.filter(item => item !== ingredient)
     })
   }
+
   removeIngredient(ingredient) {
     this.setState({
       selectedIngredients: [...this.state.selectedIngredients, ingredient],
-      visibleIngredients: this.state.visibleIngredients.filter(item => item != ingredient)
+      visibleIngredients: this.state.visibleIngredients.filter(item => item !== ingredient)
     })
   }
 
