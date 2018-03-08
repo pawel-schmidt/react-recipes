@@ -6,7 +6,7 @@ const Ingredients = ({visibleIngredients, selectedIngredients, addIngredient}) =
 		<div>
 			<p>Dodaj składniki:</p>
 			<ul className="Ingredients-list">
-				{visibleIngredients.map(ingredient => <li onClick={addIngredient} key={ingredient}>{ingredient}</li>)}
+				{visibleIngredients.map(ingredient => <li onClick={() => addIngredient(ingredient)} key={ingredient}>{ingredient}</li>)}
 			</ul>
 			<h1>Wybrane przez Ciebie składniki</h1>
 			<ul className="Ingredients-list">

@@ -22,13 +22,14 @@ class App extends Component {
       allCategories,
       visibleIngredients: allIngredients,
       visibleRecipes: allRecipes,
-      selectedIngredients: ["boczek", "bażant pieczony"],
+      selectedIngredients: [],
       selectedCategory: ""
     };
-    this.addIngredient = this.addIngredient.bind(this);
   }
-  addIngredient() {
-    console.log("hej");
+  addIngredient(ingredient) {
+    this.setState({
+      selectedIngredients: [...this.state.selectedIngredients, ingredient]
+    })
   }
 
   filterRecipes(categoryName) {
@@ -45,7 +46,11 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        <Ingredients visibleIngredients={this.state.visibleIngredients} selectedIngredients={this.state.selectedIngredients} addIgredient={this.state.addIgredient} />
+        <Ingredients 
+          visibleIngredients={this.state.visibleIngredients} 
+          selectedIngredients={this.state.selectedIngredients} 
+          addIngredient={this.addIngredient.bind(this)} 
+        />
         <RecipesList
           allCategories={this.state.allCategories}
           selectedCategory={this.state.selectedCategory}
