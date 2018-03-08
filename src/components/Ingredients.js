@@ -1,35 +1,16 @@
 import React from 'react';
 import './Ingredients.css';
 
-const Ingredients = () => {
-	return (
+const Ingredients = ({visibleIngredients, selectedIngredients, addIngredient}) => {
+    return (
 		<div>
 			<p>Dodaj składniki:</p>
 			<ul className="Ingredients-list">
-				<li>Składnik</li>
-				<li>Składnik</li>
-				<li>Składnik</li>
-				<li>Składnik</li>
-				<li>Składnik</li>
-				<li>Składnik</li>
-				<li>Składnik</li>
-				<li>Składnik</li>
-				<li>Składnik</li>
-				<li>Składnik</li>
-				<li>Składnik</li>
-				<li>Składnik</li>
-				<li>Składnik</li>
-				<li>Składnik</li>
-				<li>Składnik</li>
-				<li>Składnik</li>
-				<li>Składnik</li>
-				<li>Składnik</li>
-				<li>Składnik</li>
-				<li>Składnik</li>
-				<li>Składnik</li>
-				<li>Składnik</li>
-				<li>Składnik</li>
-				<li>Składnik</li>
+				{visibleIngredients.map(ingredient => <li onClick={addIngredient} key={ingredient}>{ingredient}</li>)}
+			</ul>
+			<h1>Wybrane przez Ciebie składniki</h1>
+			<ul className="Ingredients-list">
+				{selectedIngredients.map(ingredient => <li>{ingredient}</li>)}
 			</ul>
 		</div>
 	);

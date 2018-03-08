@@ -14,14 +14,19 @@ class App extends Component {
       allIngredients,
       allRecipes,
       visibleIngredients: allIngredients,
-      visibleRecipes: allRecipes
+      visibleRecipes: allRecipes,
+      selectedIngredients: ["boczek", "bażant pieczony"]
     };
+    this.addIngredient = this.addIngredient.bind(this);
+  }
+  addIngredient() {
+    console.log("hej");
   }
 
   render() {
     return (
       <div className="App">
-        <Ingredients />
+        <Ingredients visibleIngredients={this.state.visibleIngredients} selectedIngredients={this.state.selectedIngredients} addIgredient={this.state.addIgredient} />
         <RecipesList visibleRecipes={this.state.visibleRecipes} />
         <header className="App-header">
           <img src={logo} className="App-logo" alt="logo" />
