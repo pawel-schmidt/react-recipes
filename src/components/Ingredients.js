@@ -10,7 +10,7 @@ const Ingredients = ({visibleIngredients, selectedIngredients, addIngredient}) =
 			</ul>
 			<h1>Wybrane przez Ciebie składniki</h1>
 			<ul className="Ingredients-list">
-				{selectedIngredients.map(ingredient => <li>{ingredient}</li>)}
+				{selectedIngredients.map(ingredient => <li key={ingredient}>{ingredient}</li>)}
 			</ul>
 		</div>
 	);

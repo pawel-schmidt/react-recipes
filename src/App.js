@@ -28,7 +28,14 @@ class App extends Component {
   }
   addIngredient(ingredient) {
     this.setState({
-      selectedIngredients: [...this.state.selectedIngredients, ingredient]
+      selectedIngredients: [...this.state.selectedIngredients, ingredient],
+      visibleIngredients: this.state.visibleIngredients.filter(item => item != ingredient)
+    })
+  }
+  removeIngredient(ingredient) {
+    this.setState({
+      selectedIngredients: [...this.state.selectedIngredients, ingredient],
+      visibleIngredients: this.state.visibleIngredients.filter(item => item != ingredient)
     })
   }
 
