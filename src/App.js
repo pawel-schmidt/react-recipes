@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import logo from "./logo.svg";
 import "./App.css";
 import Ingredients from "./components/Ingredients";
 import RecipesList from "./components/RecipesList";
@@ -8,6 +7,7 @@ import allIngredients from "./data/ingredients.json";
 import allRecipes from "./data/recipes.json";
 
 const ALL_CATEGORIES = "All";
+
 class App extends Component {
   constructor(props) {
     super(props);
@@ -21,56 +21,60 @@ class App extends Component {
       allRecipes,
       allCategories,
       visibleIngredients: allIngredients,
-      visibleRecipes: allRecipes,
       selectedIngredients: [],
-      selectedCategory: ""
+      selectedCategory: ALL_CATEGORIES
     };
   }
-  addIngredient(ingredient) {
-    this.setState({
-      selectedIngredients: [...this.state.selectedIngredients, ingredient],
-      visibleIngredients: this.state.visibleIngredients.filter(item => item != ingredient)
-    })
-  }
-  removeIngredient(ingredient) {
-    this.setState({
-      selectedIngredients: [...this.state.selectedIngredients, ingredient],
-      visibleIngredients: this.state.visibleIngredients.filter(item => item != ingredient)
-    })
+
+  get visibleRecipes() {
+    return this.state.allRecipes
+      .filter(
+        recipe =>
+          this.state.selectedCategory === ALL_CATEGORIES ||
+          this.state.selectedCategory === recipe.category
+      )
+      .filter(recipe =>
+        recipe.ingredients.some(ingredient =>
+          this.state.selectedIngredients.includes(ingredient)
+        )
+      );
   }
 
-  filterRecipes(categoryName) {
-    this.setState({
-      visibleRecipes:
-        categoryName === ALL_CATEGORIES
-          ? this.state.allRecipes
-          : this.state.allRecipes.filter(
-              recipe => recipe.category === categoryName
-            )
-    });
+  addIngredient(ingredient) {
+    this.setState(prevState => ({
+      selectedIngredients: [...prevState.selectedIngredients, ingredient],
+      visibleIngredients: prevState.visibleIngredients.filter(
+        i => i !== ingredient
+      )
+    }));
+  }
+
+  removeIngredient(ingredient) {
+    this.setState(prevState => ({
+      selectedIngredients: prevState.selectedIngredients.filter(
+        i => i !== ingredient
+      ),
+      visibleIngredients: [...prevState.visibleIngredients, ingredient]
+    }));
+  }
+
+  filterRecipes(selectedCategory) {
+    this.setState({ selectedCategory });
   }
 
   render() {
     return (
       <div className="App">
-        <Ingredients 
-          visibleIngredients={this.state.visibleIngredients} 
-          selectedIngredients={this.state.selectedIngredients} 
-          addIngredient={this.addIngredient.bind(this)} 
+        <Ingredients
+          visibleIngredients={this.state.visibleIngredients}
+          selectedIngredients={this.state.selectedIngredients}
+          addIngredient={this.addIngredient.bind(this)}
         />
         <RecipesList
           allCategories={this.state.allCategories}
-          selectedCategory={this.state.selectedCategory}
-          visibleRecipes={this.state.visibleRecipes}
+          visibleRecipes={this.visibleRecipes}
           filterRecipes={this.filterRecipes.bind(this)}
         />
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h1 className="App-title">Welcome to React</h1>
-        </header>
-        <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
-        </p>
       </div>
     );
   }

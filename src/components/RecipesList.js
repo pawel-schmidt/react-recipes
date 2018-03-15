@@ -1,6 +1,6 @@
-import React from 'react';
+import React from "react";
 
-const Ingredients = ({allCategories, visibleRecipes, filterRecipes}) => (
+const RecipesList = ({ allCategories, visibleRecipes, filterRecipes }) => (
   <div>
     <h2>Categories</h2>
     <ul>
@@ -16,4 +16,4 @@ const Ingredients = ({allCategories, visibleRecipes, filterRecipes}) => (
   </div>
 );
 
-export default Ingredients;
+export default RecipesList;
