@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import "./App.css";
 import Ingredients from "./components/Ingredients";
+import ChoosenIngredients from "./components/ChoosenIngredients";
 import RecipesList from "./components/RecipesList";
 
 import allIngredients from "./data/ingredients.json";
@@ -83,19 +84,26 @@ class App extends Component {
 
   render() {
     return (
-      <div className="App">
+      <div className="App col-md-12 ">
+      <div className="row">
         <Ingredients
           visibleIngredients={this.state.visibleIngredients}
-          selectedIngredients={this.state.selectedIngredients}
           addIngredient={this.addIngredient.bind(this)}
           onSearchTextChange={this.onSearchTextChange.bind(this)}
           searchText={this.state.searchText}
+        />
+        <div className="col-xl-10 right-column">
+        <ChoosenIngredients
+          selectedIngredients={this.state.selectedIngredients}
+          removeIngredient={this.removeIngredient.bind(this)}
         />
         <RecipesList
           allCategories={this.state.allCategories}
           visibleRecipes={this.visibleRecipes}
           filterRecipes={this.filterRecipes.bind(this)}
         />
+        </div>
+      </div>
       </div>
     );
   }
