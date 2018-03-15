@@ -23,8 +23,14 @@ class App extends Component {
       visibleIngredients: allIngredients,
       visibleRecipes: allRecipes,
       selectedIngredients: [],
-      selectedCategory: ""
+      selectedCategory: ALL_CATEGORIES
     };
+  }
+
+  get visibleRecipes() {
+    return this.state.allRecipes
+      .filter(recipe => this.state.selectedCategory === ALL_CATEGORIES || this.state.selectedCategory === recipe.category)
+      .filter(recipe => recipe.ingredients.some(ingredient => this.state.selectedIngredients.includes(ingredient)));
   }
   
   addIngredient(ingredient) {
@@ -41,15 +47,8 @@ class App extends Component {
     })
   }
 
-  filterRecipes(categoryName) {
-    this.setState({
-      visibleRecipes:
-        categoryName === ALL_CATEGORIES
-          ? this.state.allRecipes
-          : this.state.allRecipes.filter(
-              recipe => recipe.category === categoryName
-            )
-    });
+  filterRecipes(selectedCategory) {
+    this.setState({ selectedCategory });
   }
 
   render() {
@@ -62,8 +61,7 @@ class App extends Component {
         />
         <RecipesList
           allCategories={this.state.allCategories}
-          selectedCategory={this.state.selectedCategory}
-          visibleRecipes={this.state.visibleRecipes}
+          visibleRecipes={this.visibleRecipes}
           filterRecipes={this.filterRecipes.bind(this)}
         />
       </div>

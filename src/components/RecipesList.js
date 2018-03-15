@@ -1,6 +1,6 @@
-import React from 'react';
+import React from "react";
 
-const RecipesList = ({allCategories, visibleRecipes, filterRecipes}) => (
+const RecipesList = ({ allCategories, visibleRecipes, filterRecipes }) => (
   <div>
     <h2>Categories</h2>
     <ul>
