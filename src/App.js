@@ -22,6 +22,7 @@ class App extends Component {
       allCategories,
       visibleIngredients: allIngredients,
       selectedIngredients: [],
+      searchText: "",
       selectedCategory: ALL_CATEGORIES
     };
   }
@@ -58,6 +59,24 @@ class App extends Component {
     }));
   }
 
+  onSearchTextChange(event) {
+    this.setState({
+      searchText: event.target.value,
+      visibleIngredients: this.state.allIngredients.filter(ingredient =>
+        this.progressiveSearch(event.target.value, ingredient)
+      )
+    });
+  }
+
+  progressiveSearch(searchPhrase, string) {
+    let index = -1;
+    const stringLowerCase = string.toLowerCase();
+    return searchPhrase.toLowerCase().split("").reduce((allCharsFulfillCondition, char) => {
+      index = stringLowerCase.indexOf(char, index + 1);
+      return allCharsFulfillCondition && (index !== -1);
+    }, true);
+  }
+
   filterRecipes(selectedCategory) {
     this.setState({ selectedCategory });
   }
@@ -69,6 +88,8 @@ class App extends Component {
           visibleIngredients={this.state.visibleIngredients}
           selectedIngredients={this.state.selectedIngredients}
           addIngredient={this.addIngredient.bind(this)}
+          onSearchTextChange={this.onSearchTextChange.bind(this)}
+          searchText={this.state.searchText}
         />
         <RecipesList
           allCategories={this.state.allCategories}
