@@ -21,7 +21,6 @@ class App extends Component {
       allRecipes,
       allCategories,
       visibleIngredients: allIngredients,
-      visibleRecipes: allRecipes,
       selectedIngredients: [],
       selectedCategory: ALL_CATEGORIES
     };
@@ -29,22 +28,34 @@ class App extends Component {
 
   get visibleRecipes() {
     return this.state.allRecipes
-      .filter(recipe => this.state.selectedCategory === ALL_CATEGORIES || this.state.selectedCategory === recipe.category)
-      .filter(recipe => recipe.ingredients.some(ingredient => this.state.selectedIngredients.includes(ingredient)));
+      .filter(
+        recipe =>
+          this.state.selectedCategory === ALL_CATEGORIES ||
+          this.state.selectedCategory === recipe.category
+      )
+      .filter(recipe =>
+        recipe.ingredients.some(ingredient =>
+          this.state.selectedIngredients.includes(ingredient)
+        )
+      );
   }
-  
+
   addIngredient(ingredient) {
-    this.setState({
-      selectedIngredients: [...this.state.selectedIngredients, ingredient],
-      visibleIngredients: this.state.visibleIngredients.filter(item => item !== ingredient)
-    })
+    this.setState(prevState => ({
+      selectedIngredients: [...prevState.selectedIngredients, ingredient],
+      visibleIngredients: prevState.visibleIngredients.filter(
+        i => i !== ingredient
+      )
+    }));
   }
 
   removeIngredient(ingredient) {
-    this.setState({
-      selectedIngredients: [...this.state.selectedIngredients, ingredient],
-      visibleIngredients: this.state.visibleIngredients.filter(item => item !== ingredient)
-    })
+    this.setState(prevState => ({
+      selectedIngredients: prevState.selectedIngredients.filter(
+        i => i !== ingredient
+      ),
+      visibleIngredients: [...prevState.visibleIngredients, ingredient]
+    }));
   }
 
   filterRecipes(selectedCategory) {
@@ -54,10 +65,10 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        <Ingredients 
-          visibleIngredients={this.state.visibleIngredients} 
-          selectedIngredients={this.state.selectedIngredients} 
-          addIngredient={this.addIngredient.bind(this)} 
+        <Ingredients
+          visibleIngredients={this.state.visibleIngredients}
+          selectedIngredients={this.state.selectedIngredients}
+          addIngredient={this.addIngredient.bind(this)}
         />
         <RecipesList
           allCategories={this.state.allCategories}
