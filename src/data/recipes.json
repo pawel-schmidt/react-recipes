@@ -59,5 +59,25 @@
       "kostki lodu"
     ],
     "recipe":"Na dno małego rondelka włożyć olej kokosowy i lekko podgrzać. Dodać kurkumę oraz pieprz i podgrzewać przez 30 sekund. Po tym czasie dodać płatki, mleko, sól oraz cukier i gotować przez 10 – 15 minut na małym ogniu, co jakiś czas można zamieszać."
+  },
+  {
+    "id":"6",
+    "category":"Śniadanie",
+    "name":"Wódka z borówkami",
+    "ingredients":[
+      "wódka",
+      "borówki"
+    ],
+    "recipe":"Najpierw wóda potem borkówki"
+  },
+  {
+    "id":"7",
+    "category":"Drink",
+    "name":"Drink bezalkoholowy",
+    "ingredients":[
+      "brzoskwinia",
+      "cytryna"
+    ],
+    "recipe":"Najpierw wóda potem borkówki"
   }
 ]
