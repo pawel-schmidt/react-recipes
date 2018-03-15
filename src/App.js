@@ -71,10 +71,13 @@ class App extends Component {
   progressiveSearch(searchPhrase, string) {
     let index = -1;
     const stringLowerCase = string.toLowerCase();
-    return searchPhrase.toLowerCase().split("").reduce((allCharsFulfillCondition, char) => {
-      index = stringLowerCase.indexOf(char, index + 1);
-      return allCharsFulfillCondition && (index !== -1);
-    }, true);
+    return searchPhrase
+      .toLowerCase()
+      .split("")
+      .reduce((allCharsFulfillCondition, char) => {
+        index = stringLowerCase.indexOf(char, index + 1);
+        return allCharsFulfillCondition && index !== -1;
+      }, true);
   }
 
   filterRecipes(selectedCategory) {
