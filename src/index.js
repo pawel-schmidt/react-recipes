@@ -4,6 +4,21 @@ import "./vendors/css/bootstrap.min.css";
 import "./index.css";
 import App from "./App";
 import registerServiceWorker from "./registerServiceWorker";
+import DevTools from "./DevTools";
 
-ReactDOM.render(<App />, document.getElementById("root"));
+import { createStore } from "redux";
+import reducer from "./reducer.js";
+import { Provider } from "react-redux";
+
+const store = createStore(reducer, DevTools.instrument());
+
+ReactDOM.render(
+  <Provider store={store}>
+    <div>
+      <App />
+      <DevTools />
+    </div>
+  </Provider>,
+  document.getElementById("root")
+);
 registerServiceWorker();
