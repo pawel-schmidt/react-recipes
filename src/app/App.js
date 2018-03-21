@@ -3,9 +3,12 @@ import "./App.css";
 import Ingredients from "../ingredients/Ingredients";
 import ChoosenIngredients from "../ingredients/ChoosenIngredients";
 import RecipesList from "../recipes/RecipesList";
-import { connect } from "react-redux";
 
 import allIngredients from "../data/ingredients.json";
+
+import { connect } from "react-redux";
+import { mapStateToVisibleRecipes } from "../recipes/reducer";
+import { selectCategory } from "../recipes/actions";
 
 const ALL_CATEGORIES = "All";
 
@@ -22,23 +25,8 @@ class App extends Component {
       allCategories,
       visibleIngredients: allIngredients,
       selectedIngredients: [],
-      searchText: "",
-      selectedCategory: ALL_CATEGORIES
+      searchText: ""
     };
-  }
-
-  get visibleRecipes() {
-    return this.props.allRecipes
-      .filter(
-        recipe =>
-          this.state.selectedCategory === ALL_CATEGORIES ||
-          this.state.selectedCategory === recipe.category
-      )
-      .filter(recipe =>
-        recipe.ingredients.some(ingredient =>
-          this.state.selectedIngredients.includes(ingredient)
-        )
-      );
   }
 
   addIngredient(ingredient) {
@@ -81,38 +69,39 @@ class App extends Component {
   }
 
   filterRecipes(selectedCategory) {
-    this.setState({ selectedCategory });
+    this.props.dispatch(selectCategory(selectedCategory));
   }
 
   render() {
     return (
       <div className="App col-md-12 ">
-      <div className="row">
-        <Ingredients
-          visibleIngredients={this.state.visibleIngredients}
-          addIngredient={this.addIngredient.bind(this)}
-          onSearchTextChange={this.onSearchTextChange.bind(this)}
-          searchText={this.state.searchText}
-        />
-        <div className="col-xl-10 right-column">
-        <ChoosenIngredients
-          selectedIngredients={this.state.selectedIngredients}
-          removeIngredient={this.removeIngredient.bind(this)}
-        />
-        <RecipesList
-          allCategories={this.state.allCategories}
-          visibleRecipes={this.visibleRecipes}
-          filterRecipes={this.filterRecipes.bind(this)}
-        />
+        <div className="row">
+          <Ingredients
+            visibleIngredients={this.state.visibleIngredients}
+            addIngredient={this.addIngredient.bind(this)}
+            onSearchTextChange={this.onSearchTextChange.bind(this)}
+            searchText={this.state.searchText}
+          />
+          <div className="col-xl-10 right-column">
+            <ChoosenIngredients
+              selectedIngredients={this.state.selectedIngredients}
+              removeIngredient={this.removeIngredient.bind(this)}
+            />
+            <RecipesList
+              allCategories={this.state.allCategories}
+              visibleRecipes={this.props.visibleRecipes}
+              filterRecipes={this.filterRecipes.bind(this)}
+            />
+          </div>
         </div>
-      </div>
       </div>
     );
   }
 }
 
-const mapStateToProps = (state) => ({
-  allRecipes: state.recipes.all
+const mapStateToProps = state => ({
+  allRecipes: state.recipes.all,
+  visibleRecipes: mapStateToVisibleRecipes(state)
 });
 
 export default connect(mapStateToProps)(App);
