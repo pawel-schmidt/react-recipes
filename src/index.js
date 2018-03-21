@@ -9,7 +9,8 @@ import DevTools from "./DevTools";
 import { createStore } from "redux";
 import reducer from "./reducer.js";
 import { Provider } from "react-redux";
-import { getAllRecipes } from "./recipes/actions";
+
+const store = createStore(reducer, DevTools.instrument());
 
 ReactDOM.render(
   <Provider store={store}>
@@ -22,5 +23,3 @@ ReactDOM.render(
 );
 registerServiceWorker();
 
-const store = createStore(reducer, DevTools.instrument());
-store.dispatch(getAllRecipes());

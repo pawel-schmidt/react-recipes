@@ -3,6 +3,7 @@ import "./App.css";
 import Ingredients from "../ingredients/Ingredients";
 import ChoosenIngredients from "../ingredients/ChoosenIngredients";
 import RecipesList from "../recipes/RecipesList";
+import { connect } from "react-redux";
 
 import allIngredients from "../data/ingredients.json";
 
@@ -13,12 +14,11 @@ class App extends Component {
     super(props);
     const allCategoriesWithDuplicates = [
       ALL_CATEGORIES,
-      ...allRecipes.map(recipe => recipe.category)
+      ...props.allRecipes.map(recipe => recipe.category)
     ];
     const allCategories = [...new Set(allCategoriesWithDuplicates)];
     this.state = {
       allIngredients,
-      allRecipes,
       allCategories,
       visibleIngredients: allIngredients,
       selectedIngredients: [],
@@ -28,7 +28,7 @@ class App extends Component {
   }
 
   get visibleRecipes() {
-    return this.state.allRecipes
+    return this.props.allRecipes
       .filter(
         recipe =>
           this.state.selectedCategory === ALL_CATEGORIES ||
@@ -111,4 +111,8 @@ class App extends Component {
   }
 }
 
-export default App;
+const mapStateToProps = (state) => ({
+  allRecipes: state.recipes.all
+});
+
+export default connect(mapStateToProps)(App);
