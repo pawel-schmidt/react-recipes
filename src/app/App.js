@@ -1,11 +1,11 @@
 import React, { Component } from "react";
 import "./App.css";
-import Ingredients from "./components/Ingredients";
-import ChoosenIngredients from "./components/ChoosenIngredients";
-import RecipesList from "./components/RecipesList";
+import Ingredients from "../ingredients/Ingredients";
+import ChoosenIngredients from "../ingredients/ChoosenIngredients";
+import RecipesList from "../recipes/RecipesList";
 
-import allIngredients from "./data/ingredients.json";
-import allRecipes from "./data/recipes.json";
+import allIngredients from "../data/ingredients.json";
+import allRecipes from "../data/recipes.json";
 
 const ALL_CATEGORIES = "All";
 
