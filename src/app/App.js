@@ -5,7 +5,6 @@ import ChoosenIngredients from "../ingredients/ChoosenIngredients";
 import RecipesList from "../recipes/RecipesList";
 
 import allIngredients from "../data/ingredients.json";
-import allRecipes from "../data/recipes.json";
 
 const ALL_CATEGORIES = "All";
 
