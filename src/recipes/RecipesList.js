@@ -2,22 +2,37 @@ import React from "react";
 import { connect } from "react-redux";
 import { selectCategory } from "../actions";
 
-const RecipesList = ({ allCategories, visibleRecipes, filterCategory, selectedCategory, selectedIngredients }) => (
+const RecipesList = ({
+  allCategories,
+  visibleRecipes,
+  filterCategory,
+  selectedCategory,
+  selectedIngredients
+}) => (
   <div className="col-md-12 result-column">
-    { selectedIngredients.length ? 
-    <div className="row">
-          <div className="col-md-12">
-            <ul className="nav nav-pills nav-fill">
-                {allCategories.map(category => (
-                  <li key={category} className="nav-item">
-                    <a className={(category === selectedCategory)? "active nav-link" : "nav-link"} href="#" onClick={() => filterCategory(category)}>
-                      {category}
-                    </a>
-                  </li>
-                ))}
-            </ul>
-          </div>
-    </div> : "" }
+    {selectedIngredients.length ? (
+      <div className="row">
+        <div className="col-md-12">
+          <ul className="nav nav-pills nav-fill">
+            {allCategories.map(category => (
+              <li key={category} className="nav-item">
+                <a
+                  className={
+                    category === selectedCategory
+                      ? "active nav-link"
+                      : "nav-link"
+                  }
+                  href="#"
+                  onClick={() => filterCategory(category)}
+                >
+                  {category}
+                </a>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </div>
+    ) : null}
     <div className="row">
       {visibleRecipes.map(recipe => (
         <div key={recipe.id} className="result-single col-xl-3 col-md-6">
