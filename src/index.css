@@ -10,27 +10,92 @@ body {
   list-style-type: none;
   padding-left: 0; }
 
+.ingredients-select li, .choosen-ingredients li {
+  cursor: pointer; }
+
+.choosen-ingredients li {
+  position: relative; }
+
+.choosen-ingredients span {
+  background: red;
+  color: white;
+  border-radius: 50%;
+  height: 16px;
+  width: 16px;
+  position: absolute;
+  border: 1px solid black;
+  top: -8px;
+  right: -5px;
+  line-height: 16px;
+  font-size: 16px;
+  opacity: 0;
+  -webkit-transition: .2s;
+  -o-transition: .2s;
+  transition: .2s; }
+
+.choosen-ingredients li:hover {
+  animation: shake 1s cubic-bezier(0.36, 0.07, 0.19, 0.97) both;
+  transform: translate3d(0, 0, 0);
+  backface-visibility: hidden;
+  perspective: 1000px; }
+
+@keyframes shake {
+  10%, 90% {
+    transform: translate3d(-0.5px, 0, 0); }
+  20%, 80% {
+    transform: translate3d(0.5px, 0, 0); }
+  30%, 50%, 70% {
+    transform: translate3d(-1px, 0, 0); }
+  40%, 60% {
+    transform: translate3d(1px, 0, 0); } }
+
+.choosen-ingredients li:hover span {
+  opacity: 1; }
+
 .badge {
   font-size: 100%;
-  margin-right: 5px;
-  margin-bottom: 10px; }
+  margin-right: 5px; }
 
 .border-warning {
   box-shadow: 0 0 16px #bdbdbd; }
 
 .choosen-ingredients {
-  padding-left: 0; }
+  padding-left: 0;
+  margin-bottom: 1rem;
+  margin-top: 1rem; }
 
 .list-group-item {
   padding: 5px; }
 
-.result-single {
-  background: rgba(255, 255, 255, 0.9); }
+.nav-fill {
+  border-radius: 5px;
+  margin-bottom: 15px; }
+
+.nav-pills .nav-item {
+  background: rgba(255, 255, 255, 0.7);
+  margin: 1px;
+  border-radius: 5px; }
+
+.nav-pills .nav-link {
+  color: #000;
+  font-weight: 700; }
+  .nav-pills .nav-link.active {
+    background: orange;
+    color: #000; }
+  .nav-pills .nav-link:focus, .nav-pills .nav-link:hover {
+    background: #ffc107;
+    color: black; }
 
 .result-column {
   background: url("http://i67.tinypic.com/ap6umr.jpg");
   height: 100vh;
   background-size: cover; }
+  .result-column .result-single {
+    opacity: 0;
+    animation: new-item-animation .3s linear forwards; }
+    .result-column .result-single.removed-item {
+      animation: removed-item-animation 1s cubic-bezier(0.55, -0.04, 0.91, 0.94) forwards;
+      transform-origin: 0% 100%; }
 
 .hidden {
   display: none; }
@@ -47,4 +112,32 @@ body {
     z-index: 9;
     background: white; }
   .result-column {
-    padding-top: 100px; } }
+    padding-top: 75px; } }
+
+@keyframes new-item-animation {
+  from {
+    opacity: 0;
+    -webkit-transform: scale(0);
+    -ms-transform: scale(0);
+    -o-transform: scale(0);
+    transform: scale(0); }
+  to {
+    opacity: 1;
+    -webkit-transform: scale(1);
+    -ms-transform: scale(1);
+    -o-transform: scale(1);
+    transform: scale(1); } }
+
+@keyframes removed-item-animation {
+  from {
+    opacity: 1;
+    -webkit-transform: scale(1);
+    -ms-transform: scale(1);
+    -o-transform: scale(1);
+    transform: scale(1); }
+  to {
+    -webkit-transform: scale(0);
+    -ms-transform: scale(0);
+    -o-transform: scale(0);
+    transform: scale(0);
+    opacity: 0; } }

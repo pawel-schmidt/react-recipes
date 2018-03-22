@@ -20,11 +20,12 @@ class Ingredients extends React.Component {
   render() {
     return (
       <div className="col-xl-2 ingredients">
-        <h2>Ingredients:</h2>
+        <h2>Recepiest App</h2>
         <div className="form-group">
           <input
             className="form-control"
             value={this.state.searchText}
+            placeholder="Find Ingredient"
             onChange={this.onSearchTextChange.bind(this)}
           />
         </div>
