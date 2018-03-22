@@ -12,7 +12,7 @@ const ingredientsFromRecipes = recipes.reduce(
   (acc, recipe) => [...acc, ...recipe.ingredients],
   []
 );
-const ingredients = [...new Set(ingredientsFromRecipes)];
+const ingredients = [...new Set(ingredientsFromRecipes)].sort();
 
 const allCategoriesWithDuplicates = [
   ALL_CATEGORIES,
