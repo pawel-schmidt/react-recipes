@@ -30,8 +30,8 @@ class Ingredients extends React.Component {
         </div>
         <ul className="ingredients-select">
           {this.props.visibleIngredients.map(ingredient => (
-            <li onClick={() => this.props.addIngredient(ingredient)} key={ingredient}>
-              {ingredient}
+            <li onClick={() => this.props.addIngredient(ingredient)} key={ingredient.id}>
+              {ingredient.name}
             </li>
           ))}
         </ul>

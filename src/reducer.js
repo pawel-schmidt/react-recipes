@@ -1,18 +1,13 @@
 import recipes from "./data/recipes.json";
 import {
   SELECT_CATEGORY,
+  FETCH_INGREDIENTS,
   ADD_INGREDIENT,
   REMOVE_INGREDIENT,
   FILTER_INGREDIENTS
 } from "./actions";
 
 const ALL_CATEGORIES = "All";
-
-const ingredientsFromRecipes = recipes.reduce(
-  (acc, recipe) => [...acc, ...recipe.ingredients],
-  []
-);
-const ingredients = [...new Set(ingredientsFromRecipes)].sort();
 
 const allCategoriesWithDuplicates = [
   ALL_CATEGORIES,
@@ -24,8 +19,8 @@ const initialState = {
   allRecipes: recipes,
   visibleRecipes: recipes,
 
-  allIngredients: ingredients,
-  visibleIngredients: ingredients,
+  allIngredients: [],
+  visibleIngredients: [],
   selectedIngredients: [],
 
   allCategories: categories,
@@ -40,12 +35,19 @@ function reducer(state = initialState, action) {
         selectedCategory: action.category
       };
 
+    case FETCH_INGREDIENTS:
+      return {
+        ...state,
+        allIngredients: action.ingredients,
+        visibleIngredients: action.ingredients
+      };
+
     case ADD_INGREDIENT:
       return {
         ...state,
         selectedIngredients: [action.ingredient, ...state.selectedIngredients],
         visibleIngredients: state.visibleIngredients.filter(
-          i => i !== action.ingredient
+          ingredient => ingredient.id !== action.ingredient.id
         )
       };
 
@@ -53,7 +55,7 @@ function reducer(state = initialState, action) {
       return {
         ...state,
         selectedIngredients: state.selectedIngredients.filter(
-          i => i !== action.ingredient
+          ingredient => ingredient.id !== action.ingredient.id
         ),
         visibleIngredients: [action.ingredient, ...state.visibleIngredients]
       };
@@ -63,7 +65,7 @@ function reducer(state = initialState, action) {
         ...state,
         searchText: action.searchText,
         visibleIngredients: state.allIngredients.filter(ingredient =>
-          progressiveSearch(action.searchText, ingredient)
+          progressiveSearch(action.searchText, ingredient.name)
         )
       };
 

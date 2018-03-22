@@ -6,32 +6,32 @@ import RecipesList from "../recipes/RecipesList";
 
 import { connect } from "react-redux";
 import { mapStateToVisibleRecipes } from "../reducer";
-import { removeIngredient } from "../actions";
+import { fetchIngredientsRequest, removeIngredient } from "../actions";
 
-const App = ({
-  selectedIngredients,
-  allCategories,
-  visibleRecipes,
-  removeIngredient
-}) => {
-  return (
-    <div className="App col-md-12 ">
-      <div className="row">
-        <Ingredients />
-        <div className="col-xl-10 right-column">
-          <ChoosenIngredients
-            selectedIngredients={selectedIngredients}
-            removeIngredient={removeIngredient}
-          />
-          <RecipesList
-            allCategories={allCategories}
-            visibleRecipes={visibleRecipes}
-          />
+class App extends React.Component {
+  componentDidMount() {
+    this.props.fetchIngredients();
+  }
+  render() {
+    return (
+      <div className="App col-md-12">
+        <div className="row">
+          <Ingredients />
+          <div className="col-xl-10 right-column">
+            <ChoosenIngredients
+              selectedIngredients={this.props.selectedIngredients}
+              removeIngredient={this.props.removeIngredient}
+            />
+            <RecipesList
+              allCategories={this.props.allCategories}
+              visibleRecipes={this.props.visibleRecipes}
+            />
+          </div>
         </div>
       </div>
-    </div>
-  );
-};
+    );
+  }
+}
 
 const mapStateToProps = state => ({
   allRecipes: state.allRecipes,
@@ -41,7 +41,8 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  removeIngredient: ingredient => dispatch(removeIngredient(ingredient))
+  removeIngredient: ingredient => dispatch(removeIngredient(ingredient)),
+  fetchIngredients: () => dispatch(fetchIngredientsRequest())
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);
