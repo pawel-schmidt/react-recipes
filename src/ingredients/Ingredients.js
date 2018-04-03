@@ -3,6 +3,7 @@ import "./Ingredients.css";
 
 import { connect } from "react-redux";
 import { addIngredient, filterIngredients } from "../actions";
+import { mapStateToVisibleIngredients } from "../reducer";
 
 class Ingredients extends React.Component {
   constructor(props) {
@@ -42,7 +43,7 @@ class Ingredients extends React.Component {
 }
 
 const mapStateToProps = state => ({
-  visibleIngredients: state.visibleIngredients
+  visibleIngredients: mapStateToVisibleIngredients(state)
 });
 
 const mapDispatchToProps = dispatch => ({

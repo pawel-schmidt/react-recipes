@@ -23,7 +23,6 @@ class App extends React.Component {
               removeIngredient={this.props.removeIngredient}
             />
             <RecipesList
-              allCategories={this.props.allCategories}
               visibleRecipes={this.props.visibleRecipes}
             />
           </div>
@@ -36,8 +35,7 @@ class App extends React.Component {
 const mapStateToProps = state => ({
   allRecipes: state.allRecipes,
   visibleRecipes: mapStateToVisibleRecipes(state),
-  selectedIngredients: state.selectedIngredients,
-  allCategories: state.allCategories
+  selectedIngredients: state.selectedIngredients
 });
 
 const mapDispatchToProps = dispatch => ({
