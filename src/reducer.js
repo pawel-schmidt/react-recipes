@@ -1,13 +1,13 @@
-import recipes from "./data/recipes.json";
 import {
   FETCH_INGREDIENTS,
-  ADD_INGREDIENT,
-  REMOVE_INGREDIENT,
-  FILTER_INGREDIENTS
+  SELECT_INGREDIENT,
+  DESELECT_INGREDIENT,
+  FILTER_INGREDIENTS,
+  ADD_RECIPES
 } from "./actions";
 
 const initialState = {
-  allRecipes: recipes,
+  fetchedRecipes: new Map(),
   allIngredients: [],
   selectedIngredients: [],
   searchIngredientText: ""
@@ -21,13 +21,13 @@ function reducer(state = initialState, action) {
         allIngredients: action.ingredients
       };
 
-    case ADD_INGREDIENT:
+    case SELECT_INGREDIENT:
       return {
         ...state,
         selectedIngredients: [...state.selectedIngredients, action.ingredient]
       };
 
-    case REMOVE_INGREDIENT:
+    case DESELECT_INGREDIENT:
       return {
         ...state,
         selectedIngredients: state.selectedIngredients.filter(
@@ -39,6 +39,15 @@ function reducer(state = initialState, action) {
       return {
         ...state,
         searchIngredientText: action.searchText
+      };
+
+    case ADD_RECIPES:
+      return {
+        ...state,
+        fetchedRecipes: new Map(state.fetchedRecipes).set(
+          action.ingredient,
+          action.recipes
+        )
       };
 
     default:
@@ -55,12 +64,13 @@ export const mapStateToVisibleIngredients = state =>
       progressiveSearch(state.searchIngredientText, ingredient.name)
     );
 
-export const mapStateToVisibleRecipes = state =>
-  state.allRecipes.filter(recipe =>
-    recipe.ingredients.some(ingredient =>
-      state.selectedIngredients.includes(ingredient)
-    )
-  );
+export const mapStateToVisibleRecipes = state => {
+  console.log(state.fetchedRecipes);
+  return state.selectedIngredients
+    .map(ingredient => state.fetchedRecipes.get(ingredient))
+    .filter(recipes => recipes)
+    .reduce((acc, recipes) => [...acc, ...recipes], []);
+  }
 
 function progressiveSearch(searchText, string) {
   let index = -1;

@@ -1,6 +1,6 @@
 import React from "react";
 
-const ChoosenIngredients = ({ selectedIngredients, removeIngredient }) => (
+const ChoosenIngredients = ({ selectedIngredients, deselectIngredient }) => (
   <div>
     {selectedIngredients.length ? (
       <div className="col-md-12 choosen-column">
@@ -9,7 +9,7 @@ const ChoosenIngredients = ({ selectedIngredients, removeIngredient }) => (
             <li
               className="badge badge-warning"
               key={ingredient.id}
-              onClick={() => removeIngredient(ingredient)}
+              onClick={() => deselectIngredient(ingredient)}
             >
               <span aria-hidden="true">&times;</span>
               {ingredient.name}

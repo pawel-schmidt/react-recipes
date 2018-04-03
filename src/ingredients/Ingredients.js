@@ -2,7 +2,7 @@ import React from "react";
 import "./Ingredients.css";
 
 import { connect } from "react-redux";
-import { addIngredient, filterIngredients } from "../actions";
+import { selectIngredient, filterIngredients, fetchRecipesForIngredientRequest } from "../actions";
 import { mapStateToVisibleIngredients } from "../reducer";
 
 class Ingredients extends React.Component {
@@ -18,6 +18,12 @@ class Ingredients extends React.Component {
     });
     this.props.filterIngredients(event.target.value);
   }
+  selectIngredient(ingredient) {
+    if (!this.props.fetchedRecipes.has(ingredient)) {
+      this.props.fetchRecipesForIngredientRequest(ingredient);
+    }
+    this.props.selectIngredient(ingredient);
+  }
   render() {
     return (
       <div className="col-xl-2 ingredients">
@@ -32,7 +38,7 @@ class Ingredients extends React.Component {
         </div>
         <ul className="ingredients-select">
           {this.props.visibleIngredients.map(ingredient => (
-            <li onClick={() => this.props.addIngredient(ingredient)} key={ingredient.id}>
+            <li onClick={() => this.selectIngredient(ingredient)} key={ingredient.id}>
               {ingredient.name}
             </li>
           ))}
@@ -43,12 +49,14 @@ class Ingredients extends React.Component {
 }
 
 const mapStateToProps = state => ({
-  visibleIngredients: mapStateToVisibleIngredients(state)
+  visibleIngredients: mapStateToVisibleIngredients(state),
+  fetchedRecipes: state.fetchedRecipes
 });
 
 const mapDispatchToProps = dispatch => ({
-  addIngredient: ingredient => dispatch(addIngredient(ingredient)),
+  selectIngredient: ingredient => dispatch(selectIngredient(ingredient)),
   filterIngredients: searchText => dispatch(filterIngredients(searchText)),
+  fetchRecipesForIngredientRequest: searchText => dispatch(fetchRecipesForIngredientRequest(searchText))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Ingredients);

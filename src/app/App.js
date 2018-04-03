@@ -6,7 +6,7 @@ import RecipesList from "../recipes/RecipesList";
 
 import { connect } from "react-redux";
 import { mapStateToVisibleRecipes } from "../reducer";
-import { fetchIngredientsRequest, removeIngredient } from "../actions";
+import { fetchIngredientsRequest, deselectIngredient } from "../actions";
 
 class App extends React.Component {
   componentDidMount() {
@@ -20,7 +20,7 @@ class App extends React.Component {
           <div className="col-xl-10 right-column">
             <ChoosenIngredients
               selectedIngredients={this.props.selectedIngredients}
-              removeIngredient={this.props.removeIngredient}
+              deselectIngredient={this.props.deselectIngredient}
             />
             <RecipesList
               visibleRecipes={this.props.visibleRecipes}
@@ -39,7 +39,7 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  removeIngredient: ingredient => dispatch(removeIngredient(ingredient)),
+  deselectIngredient: ingredient => dispatch(deselectIngredient(ingredient)),
   fetchIngredients: () => dispatch(fetchIngredientsRequest())
 });
 

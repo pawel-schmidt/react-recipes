@@ -8,13 +8,13 @@ const RecipesList = ({
   <div className="col-md-12 result-column">
     <div className="row">
       {visibleRecipes.map(recipe => (
-        <div key={recipe.id} className="result-single col-xl-3 col-md-6">
+        <div key={recipe.idMeal} className="result-single col-xl-3 col-md-6">
           <div className="card border-warning mb-3">
-            <div className="card-header">{recipe.name}</div>
+            <div className="card-header">{recipe.strMeal}</div>
             <div className="card-body">
               <img
                 className="img-fluid"
-                src={recipe.image}
+                src={recipe.strMealThumb}
                 alt=""
               />
             </div>
